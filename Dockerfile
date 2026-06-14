@@ -68,7 +68,7 @@ RUN apt-get update && apt-get install -y \
 
 # Create aarch64-none-elf- symlinks for U-Boot build
 # (aarch64-linux-gnu-gcc works for bare-metal U-Boot)
-RUN for tool in gcc g++ ar ld objcopy objdump nm strip; do \
+RUN for tool in gcc g++ ar ld objcopy objdump nm strip readelf; do \
         ln -sf /usr/bin/aarch64-linux-gnu-${tool} /usr/local/bin/aarch64-none-elf-${tool}; \
     done
 
