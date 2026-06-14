@@ -44,6 +44,7 @@ RUN apt-get update && apt-get install -y \
     binfmt-support \
     parted \
     dosfstools \
+    mtools \
     e2fsprogs \
     genext2fs \
     kpartx \
