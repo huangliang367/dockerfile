@@ -14,11 +14,11 @@ else
 fi
 
 echo "[*] Starting Docker container: ${IMAGE_NAME}:${TAG}"
-echo "    Host workspace: ${PROJECT_ROOT} -> /workspace"
+echo "    Host workspace: ${PROJECT_ROOT} -> ${PROJECT_ROOT}"
 ${DOCKER_CMD} run -it --rm --privileged \
     --user hl \
     --dns 8.8.8.8 \
     --dns 114.114.114.114 \
-    -v "${PROJECT_ROOT}:/workspace" \
-    -w /workspace \
+    -v "${PROJECT_ROOT}:${PROJECT_ROOT}" \
+    -w "${PROJECT_ROOT}" \
     "${IMAGE_NAME}:${TAG}"
