@@ -5,7 +5,16 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 IMAGE_NAME="${IMAGE_NAME:-qemu-arm64-build}"
 TAG="${TAG:-latest}"
 
-echo "[*] Building Docker image: ${IMAGE_NAME}:${TAG}"
-docker build -t "${IMAGE_NAME}:${TAG}" "${SCRIPT_DIR}"
+FULL_IMAGE="${IMAGE_NAME}:${TAG}"
 
-echo "[*] Docker image built successfully: ${IMAGE_NAME}:${TAG}"
+# Check if image already exists locally
+if docker images --format '{{.Repository}}:{{.Tag}}' | grep -q "^${FULL_IMAGE}$"; then
+    echo "[*] Docker image already exists: ${FULL_IMAGE}"
+    echo "    To force rebuild, run: docker build -t ${FULL_IMAGE} ${SCRIPT_DIR}"
+    exit 0
+fi
+
+echo "[*] Building Docker image: ${FULL_IMAGE}"
+docker build -t "${FULL_IMAGE}" "${SCRIPT_DIR}"
+
+echo "[*] Docker image built successfully: ${FULL_IMAGE}"

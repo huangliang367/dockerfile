@@ -10,6 +10,8 @@ echo "[*] Starting Docker container: ${IMAGE_NAME}:${TAG}"
 echo "    Host workspace: ${PROJECT_ROOT} -> /workspace"
 docker run -it --rm --privileged \
     --user hl \
+    --dns 8.8.8.8 \
+    --dns 114.114.114.114 \
     -v "${PROJECT_ROOT}:/workspace" \
     -w /workspace \
     "${IMAGE_NAME}:${TAG}"
